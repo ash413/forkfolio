@@ -13,9 +13,34 @@ const connectToDatabase = async () => {
     }
 }
 
+//zod validation
+const userValidation = zod.object({
+    username: zod.string().min(3).max(30),
+    password: zod.string().min(6),
+    email: zod.string().email(),
+    bio: zod.string().max(500).optional()
+})
+
+const recipeValidation = zod.object({
+    title: zod.string().min(3).max(100),
+    description: zod.string().min(10).max(1000),
+    ingredients: z.array(z.object({
+        name: z.string(),
+        amount: z.string(),
+        unit: z.string().optional()
+    })),
+    steps: z.array(z.object({
+        stepNumber: z.number(),
+        instruction: z.string()
+    })),
+    imageUrl: z.string().optional(),
+    cookTime: z.number().optional()
+})
+
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
+//user schema
 const UserSchema = new Schema({
     username: String,
     password: String,
@@ -30,6 +55,7 @@ const UserSchema = new Schema({
     likedRecipes: [{ type: ObjectId, ref: 'Recipes' }]
 })
 
+//recipe schema
 const RecipeSchema = new Schema({
     title: String,
     description: String,
@@ -59,6 +85,8 @@ const Recipes = mongoose.model('Recipes', RecipeSchema);
 
 module.exports = {
     connectToDatabase,
+    userValidation,
+    recipeValidation,
     Users,
     Recipes
 }
