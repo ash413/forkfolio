@@ -55,13 +55,11 @@ const RecipeSchema = new Schema({
     }]
 })
 
-const Users = mongoose.model('Users', UserSchema);
-const Recipes = mongoose.model('Recipes', RecipeSchema);
+const User = mongoose.model('Users', UserSchema);
+const Recipe = mongoose.model('Recipes', RecipeSchema);
 
 module.exports = {
     connectToDatabase,
-    userValidation,
-    recipeValidation,
-    Users,
-    Recipes
+    User,
+    Recipe,
 }
