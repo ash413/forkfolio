@@ -49,6 +49,10 @@ const RecipeSchema = new Schema({
         ref: 'User',
         required: true
     }],
+    likes: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
     createdAt: [{
         type: Date,
         default: Date.now()
