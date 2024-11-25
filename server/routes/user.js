@@ -18,7 +18,6 @@ router.get('/:id/profile', async (req, res) => {
             });
         }
 
-        // Get user's recipes count
         const recipesCount = await Recipe.countDocuments({ author: user._id });
 
         res.json({
