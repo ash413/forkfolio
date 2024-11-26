@@ -11,6 +11,9 @@ router.post('/signup', async (req, res) => {
     try {
         const { username, password, email } = req.body;
 
+        // Log the incoming request body for debugging
+        console.log('Signup request body:', req.body);
+
         const existingUser = await User.findOne({
             $or: [{username}, {email}]
         });
@@ -31,11 +34,16 @@ router.post('/signup', async (req, res) => {
 
         //creating jwt tokens
         const token = jwt.sign({ userId: newUser._id }, SECRET, {expiresIn: '1h'})
-        res.json({"msg": "User created successfully!"})
+        res.status(201).json({
+            token: token,
+            message: "User created successfully!"
+        })
 
     } catch (error) {
+        console.log('Signup error', error)
         res.status(500).json({
-            "msg": "Error creating new user"
+            message: "Error creating new user",
+            error: error.message
         })
     }
 })
