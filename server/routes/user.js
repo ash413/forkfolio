@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const { User, Recipe} = require('../database/index')
-const auth = require('../middleware/auth');
+const { authenticateJwt } = require('../middlewares/user');
 
 
 //get user profile

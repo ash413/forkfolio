@@ -23,7 +23,7 @@ const authenticateJwt = (req, res, next) => {
             error: "Unauthorised: No token provided!"
         })    
     }
-    const token = authHeader.split('')[1];
+    const token = authHeader.split(' ')[1];
     jwt.verify(token, SECRET, (err, user) => {
         if(err){
             return res.status(400).json({
