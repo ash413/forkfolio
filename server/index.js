@@ -4,6 +4,18 @@ require('dotenv').config()
 const app = express()
 const { connectToDatabase } = require('./db/db')
 
+const authRouter = require('./routes/authRoutes')
+const userRouter = require('./routes/userRoutes')
+const recipeRouter = require('./routes/recipeRoutes')
+
+
+//ROUTES
+//auth
+app.use('/auth', authRouter)
+//user
+app.use('/user', userRouter)
+//recipe
+app.use('/recipe', recipeRouter)
 
 
 connectToDatabase().then(() => {
