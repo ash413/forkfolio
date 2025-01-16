@@ -19,7 +19,7 @@ app.use(express.json())
 //landing page
 app.get('/', async(req, res) => {
     res.json({
-        message: ""
+        message: "Welcome to ForkFolio - Share and discover amazing recipes!"
     })
 })
 //auth
