@@ -1,7 +1,8 @@
 const express = require('express')
 require('dotenv').config() 
-
+const cors = require('cors')
 const app = express()
+
 const { connectToDatabase } = require('./db/db')
 
 const authRouter = require('./routes/authRoutes')
@@ -9,13 +10,24 @@ const userRouter = require('./routes/userRoutes')
 const recipeRouter = require('./routes/recipeRoutes')
 
 
+app.use(cors())
+app.use(express.json())
+
+
+
 //ROUTES
+//landing page
+app.get('/', async(req, res) => {
+    res.json({
+        message: ""
+    })
+})
 //auth
-app.use('/auth', authRouter)
+app.use('/', authRouter)
 //user
-app.use('/user', userRouter)
+app.use('/', userRouter)
 //recipe
-app.use('/recipe', recipeRouter)
+app.use('/', recipeRouter)
 
 
 connectToDatabase().then(() => {

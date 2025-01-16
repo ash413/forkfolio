@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true},
     password: {type: String, required: true},
     bio: String,
-    createdAt: {type: Date, default: Date.now()},
-})
+}, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)
 
@@ -29,9 +28,13 @@ const recipeSchema = new mongoose.Schema({
     steps: String,
     image: String,
     likes: { type: Number, default: 0 },
-    postedBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},  
+    //for remembering purposes - this does not have a [] around it like 
+    //'likedBy' since its posted by only one person - the author, whereas 
+    //likedby can have multiple people liking that recipe and therefore needs 
+    //to be an array of ids
     likedBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-})
+}, {timestamps: true})
 
 const Recipe = mongoose.model('Recipe', recipeSchema)
 
