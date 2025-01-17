@@ -3,6 +3,8 @@ const { authMiddleware } = require('../middleware/authMiddleware')
 const { User } = require('../db/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+
+require('dotenv').config()
 const SECRET_KEY = process.env.SECRET_KEY
 
 const router = express.Router()
@@ -10,17 +12,27 @@ const router = express.Router()
 // new user signup
 router.post('/auth/signup', async(req, res) => {
     try {
-        const [name, email, password] = req.body
-        const hashedPassword = await bcrypt.hash(password)
-        const user = new User[{name, email, password: hashedPassword}]
+        const { name, email, password } = req.body
+        if (!name ||!email|| !password){
+            return res.status(400).json({
+                message: "All fields are required."
+            })
+        }
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists." });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const user = new User({name, email, password: hashedPassword})
         await user.save()
-        res.status(201).json({
+        return res.status(201).json({
             message: "User registered successfully!"
         })
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             message: "Error signing up!",
-            error
+            error: error.message
         })
     }
 })
@@ -28,21 +40,24 @@ router.post('/auth/signup', async(req, res) => {
 // user login
 router.post('/auth/login', async(req, res) => {
     try {
-        const [email, password] = req.body;
+        const { email, password } = req.body;
         const user = await User.findOne({ email });
         if (!user) res.status(404).json({
             message: "No user with these credentials"
         })
-        const isMatch = bcrypt.compare(password, user.password)
+        const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) res.status(404).json({
             message: "Invalid credentials!"
         })
-        const token = jwt.sign({id:user._id}, SECRET_KEY, {expiresIn: '1h'})
-        res.json(token)
+        const token = jwt.sign({id:user._id}, SECRET_KEY, {expiresIn: '3h'})
+        return res.json({
+            message: "Login successful!",
+            token: token
+        })
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             message: "Error loging in!",
-            error
+            error: error.message
         })
     }
 })

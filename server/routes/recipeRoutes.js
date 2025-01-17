@@ -33,6 +33,7 @@ router.get('/recipe/:id', authMiddleware, async(req, res) => {
                 message: "Recipe not found"
             })
         }
+        res.json(recipe)
     } catch (error) {
         return res.status(400).json({
             message: "Error fetching recipe",
@@ -60,6 +61,40 @@ router.post('/recipe/create', authMiddleware, async(req, res) => {
     } catch (error) {
         return res.status(400).json({
             message: "Error fetching recipe",
+            error: error.message
+        })
+    }
+})
+
+
+//update a recipe
+router.put('/recipe/:id', authMiddleware, async(req, res) => {
+    const { title, ingredients, steps } = req.body;
+    try {
+        const recipe = await Recipe.findById(req.params.id);
+        if (!recipe){
+            return res.status(403).json({
+                message: "Recipe not found!"
+            })
+        }
+        if (recipe.postedBy.toString() !== req.userId){
+            return res.status(403).json({
+                message: "Unauthorised user trying to update this recipe!"
+            })
+        }
+        recipe.title = title || recipe.title;
+        recipe.ingredients = ingredients || recipe.ingredients;
+        recipe.steps = steps || recipe.steps;
+
+        await recipe.save()
+
+        return res.status(200).json({
+            message: "Recipe updated successfully",
+            recipe
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: "Error updating recipe",
             error: error.message
         })
     }
@@ -103,7 +138,7 @@ router.post('/recipe/:id/toggle-like', authMiddleware, async(req, res) => {
             })
         }
 
-        const alreadyLiked = recipe.likedBy.includes(userId)
+        const alreadyLiked = recipe.likedBy.includes(req.userId)
 
         if (alreadyLiked){
             //UNLIKE

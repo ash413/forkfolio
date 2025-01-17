@@ -25,7 +25,7 @@ const User = mongoose.model('User', userSchema)
 const recipeSchema = new mongoose.Schema({
     title: String,
     ingredients: [String],
-    steps: String,
+    steps: [String],
     image: String,
     likes: { type: Number, default: 0 },
     postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},  

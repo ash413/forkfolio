@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
+const SECRET_KEY = process.env.SECRET_KEY || 'iLoveSpiderman'
 
 const authMiddleware = (req, res,next) => {
-    const token = req.headers['authorisation']
+    const token = req.headers['authorization']?.split(' ')[1]; // extract token from bearer
     if (!token) res.status(401).json({
         message: "No token found!"
     })
@@ -12,7 +13,7 @@ const authMiddleware = (req, res,next) => {
             error: "Invalid token",
             err
         })
-        req.userId = decoded.id
+        req.userId = decoded.id;
         next();
     })
 }
