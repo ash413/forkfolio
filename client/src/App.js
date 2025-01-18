@@ -1,9 +1,11 @@
-import react from 'react';
-
+import React from 'react';
+import LandingPage from './pages/LandingPage';
 
 function App() {
   return (
-    <div>Hello world</div>
+    <div >
+      <LandingPage/>
+    </div>
   );
 }
 
