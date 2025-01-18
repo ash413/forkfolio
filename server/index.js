@@ -10,7 +10,12 @@ const userRouter = require('./routes/userRoutes')
 const recipeRouter = require('./routes/recipeRoutes')
 
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['POST', 'GET', 'UPDATE', 'DELETE'],
+    credentials: true
+}));
+
 app.use(express.json())
 
 
