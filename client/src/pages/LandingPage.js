@@ -1,6 +1,9 @@
 import {React, useState } from 'react'
 import logo from "../images/logo2.png"
 
+import Signup from './Signup'
+import Login from './Login'
+
 const LandingPage = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const toggleMenu = () => {
@@ -19,8 +22,8 @@ const LandingPage = () => {
                     </div>
                     <h1 className="text-6xl text-white font-bold ml-20">FORKFOLIO</h1>
                     <div className="space-x-4">
-                        <button className="text-white text-lg font-bold mr-4">Log In</button>
-                        <button className="bg-white text-lg text-orange px-4 py-2 font-bold rounded">Sign Up</button>
+                        <a href={Login} className="text-white text-lg font-bold mr-4">Log In</a>
+                        <a href={Signup} className="bg-white text-lg text-orange px-4 py-2 font-bold rounded">Sign Up</a>
                     </div>
                 </div>
 
@@ -37,10 +40,9 @@ const LandingPage = () => {
             {/* Menu Dropdown for Mobile View */}
             { isMenuOpen && (
                 <div className="md:hidden flex flex-col items-center bg-orange p-4">
-                    <button className="text-white text-lg font-bold">Log In</button>
-                    <button className="bg-white text-lg font-bold text-orange px-4 py-2 rounded mt-2">Sign Up</button>
-                    <button className="text-white text-bold mt-4">Menu Option1</button>
-                    <button className="text-white text-bold mt-4">Menu Option2</button>
+                    <a href={Login} className="text-white text-lg font-bold">Log In</a>
+                    <a href={Signup} className="bg-white text-lg font-bold text-orange px-4 py-2 rounded mt-2">Sign Up</a>
+                    <a href="#features" className="text-white text-bold mt-4">Features</a>
                 </div>
             )}
         </div>
@@ -54,7 +56,7 @@ const LandingPage = () => {
         </section>
 
         {/* Features Section */}
-        <section className="bg-gray-50 py-16">
+        <section id="features" className="bg-gray-50 py-16">
             <div className="container mx-auto text-center">
             <h2 className="text-3xl font-bold mb-12">Features</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 m-4 gap-12">
