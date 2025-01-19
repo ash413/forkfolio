@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true},
     password: {type: String, required: true},
     bio: String,
+    profilePic: {type: String, default:'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)

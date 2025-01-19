@@ -69,7 +69,7 @@ router.post('/recipe/create', authMiddleware, async(req, res) => {
 
 //update a recipe
 router.put('/recipe/:id', authMiddleware, async(req, res) => {
-    const { title, ingredients, steps } = req.body;
+    const { title, ingredients, steps, image } = req.body;
     try {
         const recipe = await Recipe.findById(req.params.id);
         if (!recipe){
@@ -85,6 +85,7 @@ router.put('/recipe/:id', authMiddleware, async(req, res) => {
         recipe.title = title || recipe.title;
         recipe.ingredients = ingredients || recipe.ingredients;
         recipe.steps = steps || recipe.steps;
+        recipe.image = image || recipe.image;
 
         await recipe.save()
 
