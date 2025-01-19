@@ -2,6 +2,8 @@ import {React, useState } from 'react'
 import logo from "../images/logo2.png"
 import { Link } from 'react-router-dom'
 
+import { MdOutlineRestaurantMenu } from "react-icons/md";
+
 const LandingPage = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const toggleMenu = () => {
@@ -30,7 +32,7 @@ const LandingPage = () => {
                     <img src={logo} alt="Forkfolio Logo" className="h-24 w-24 rounded-full mb-4" />
                     {/* Hamburger Menu Icon */}
                     <button onClick={toggleMenu} className="text-white text-3xl">
-                        ☰
+                        <MdOutlineRestaurantMenu/>
                     </button>
                 </div>
             </nav>
