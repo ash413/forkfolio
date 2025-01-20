@@ -23,6 +23,27 @@ router.get('/user/:id', authMiddleware, async(req, res) => {
     }
 })
 
+//get search queries of users
+router.get('/search', authMiddleware, async(req, res) => {
+    try {
+        const query = req.query.query;
+        const users = await User.find({
+            name: { $regex: query, $options: 'i' }  // Case-insensitive search
+        }).select('-password');
+        
+        if (users.length === 0) {
+            return res.status(404).json({ message: "No users found" });
+        }
+
+        res.json(users);
+    } catch (error) {
+        res.status(400).json({
+            message: "Error searching users",
+            error: error.message
+        })
+    }
+})
+
 
 // update user profile
 router.put('/user/:id', authMiddleware, async(req,res) => {
