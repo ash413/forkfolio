@@ -14,7 +14,8 @@ const connectToDatabase = async() => {
 
 const userSchema = new mongoose.Schema({
     name: String,
-    email: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
+    username: {type: String, required:true, unique: true},
     password: {type: String, required: true},
     bio: String,
     profilePic: {type: String, default:'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}

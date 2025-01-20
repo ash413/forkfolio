@@ -1,20 +1,22 @@
 const express = require('express')
 const { authMiddleware } = require('../middleware/authMiddleware')
 const { User } = require('../db/db')
+const { Recipe } = require('../db/db')
 
 const router = express.Router()
 
 
 // get user profile
-router.get('/user/:id', authMiddleware, async(req, res) => {
+router.get('/user/:username', authMiddleware, async(req, res) => {
     try {
-        const user = await User.findById(req.params.id).select('-password')
+        const user = await User.findOne({ username: req.params.username }).select('-password');
         if (!user) {
             return res.status(404).json({
                 message: "User not found"
             })
         }
-        res.json(user)
+        const recipes = await Recipe.find({ postedBy: user._id }).sort({ createdAt: -1 });
+        res.json({user, recipes});
     } catch (error) {
         res.status(400).json({
             message: "Error fetching user profile",
@@ -22,6 +24,7 @@ router.get('/user/:id', authMiddleware, async(req, res) => {
         })
     }
 })
+
 
 //get search queries of users
 router.get('/search', authMiddleware, async(req, res) => {

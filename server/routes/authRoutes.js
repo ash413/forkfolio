@@ -13,19 +13,19 @@ const router = express.Router()
 // new user signup
 router.post('/auth/signup', async(req, res) => {
     try {
-        const { name, email, password } = req.body
-        if (!name ||!email|| !password){
+        const { name, email, username, password } = req.body
+        if (!name ||!email|| !username || !password){
             return res.status(400).json({
                 message: "All fields are required."
             })
         }
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        const existingUser = await User.findOne({ email }, { username } );
+        if ( existingUser ) {
             return res.status(400).json({ message: "User already exists." });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = new User({name, email, password: hashedPassword})
+        const user = new User({name, email, username, password: hashedPassword})
         await user.save()
         return res.status(201).json({
             message: "User registered successfully!"
@@ -54,7 +54,11 @@ router.post('/auth/login', async(req, res) => {
                 message: "Invalid credentials!"
             })
         }
-        const token = jwt.sign({id:user._id}, SECRET_KEY, {expiresIn: '3h'})
+        const token = jwt.sign(
+            {id:user._id, username: user.username}, 
+            SECRET_KEY, 
+            {expiresIn: '3h'}
+        )
         return res.json({
             message: "Login successful!",
             token: token

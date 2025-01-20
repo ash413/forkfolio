@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Feed from './pages/Feed';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -18,6 +19,12 @@ function App() {
             <Feed />
           </ProtectedRoute>
         }
+        />
+        < Route path='/userprofile/:username' element={
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        } 
         />
       </Routes>
     </Router>

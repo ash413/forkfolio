@@ -48,9 +48,9 @@ const Feed = () => {
       try {
         const token = localStorage.getItem('token');
         const decoded = jwtDecode(token)
-        const userId = decoded.id
+        const username = decoded.username
 
-        const response = await fetch(`/user/${userId}`, {
+        const response = await fetch(`/user/${username}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -58,8 +58,8 @@ const Feed = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const userData = await response.json();
-        setUser(userData);  // Set user data that includes profilePic
+        const { user } = await response.json();
+        setUser(user);  
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -103,8 +103,8 @@ const Feed = () => {
 
 
 
-  const handleSearchClick = (userId) => {
-    navigate(`/userprofile/${userId}`);
+  const handleSearchClick = (username) => {
+    navigate(`/userprofile/${username}`);
   };
 
 
@@ -139,33 +139,92 @@ const Feed = () => {
   }
 
   return (
-    <div className='flex flex-col md:flex-row m-4 gap-8 min-h-screen'>
-      {/*side navbar*/}
-      <div className='flex flex-col justify-between fixed w-24 ml-4 hidden md:flex'>
-        <div className='space-y-8'>
+    <div className='flex flex-col min-h-screen md:flex-row'>
+      {/* Mobile Search Bar - Fixed at top */}
+      <div className='fixed top-0 left-0 right-0 p-4 bg-white z-10 md:hidden'>
+        <div className='relative'>
+          <FaSearch className='absolute left-4 top-1/2 transform -translate-y-1/2 text-orange'/>
+          <input 
+            type='text'
+            placeholder='Search'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className='w-full pl-12 pr-4 py-3 rounded-full bg-white border border-gray-200 focus:outline-none focus:border-orange'
+          />
+          {searchResults.length > 0 && searchQuery.trim() !== '' && (
+            <div className='absolute left-0 right-0 bg-white border border-gray-200 mt-2 rounded-lg'>
+              {searchResults.map((user) => (
+                <div 
+                  key={user._id} 
+                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleSearchClick(user.username)}
+                >
+                  {user.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    {/* Desktop Sidebar */}
+    <nav className="fixed px-4 top-0 h-full w-48 hidden md:flex border-r border-white">
+      <div className="flex flex-col justify-between w-full py-6">
+        <div className="flex flex-col items-center space-y-12">
+          <Link to='/feed'>
+            <img 
+              src={logo} 
+              alt="Forkfolio Logo" 
+              className="w-24 h-24 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
+            />
+          </Link>
           <div>
-            <img src={logo} alt="Forkfolio Logo" className="h-24 w-24 mb-48 ml-4 rounded-full hover:opacity-80 transition-opacity cursor-pointer"/>
-          </div>
-          <div className='flex justify-center'>
-            <FaRegSquarePlus className="h-8 w-8 ml-6 hover:opacity-80 cursor-pointer transition-opacity"/>
+            <FaRegSquarePlus className="h-8 w-8 hover:opacity-80 cursor-pointer transition-opacity"/>
           </div>
         </div>
-          {user && (  // Only render this when user is not null
-            <Link to={`/userprofile/${user._id}`}>
-              <img 
-                src={user.profilePic || 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
-                alt="User Profile"
-                className='h-12 w-12 rounded-full hover:opacity-80 cursor-pointer transition-opacity ml-8 mt-72'
-              />
-            </Link>
-          )}
+        
+        {user && (
+          <Link 
+            to={`/userprofile/${user.username}`}
+            className="flex flex-col items-center space-y-2"
+          >
+            <img 
+              src={user.profilePic || 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
+              alt="User Profile"
+              className="h-16 w-16 rounded-full hover:opacity-80 cursor-pointer transition-opacity"
+            />
+          </Link>
+        )}
       </div>
+    </nav>
+
+    {/* Mobile Bottom Navigation */}
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 flex items-center justify-between px-8 md:hidden">
+      <Link to='/feed'>
+        <img 
+          src={logo} 
+          alt="Forkfolio Logo" 
+          className="h-10 w-10 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
+        />
+      </Link>
+      <FaRegSquarePlus className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
+      {user && (
+        <Link to={`/userprofile/${user.username}`}>
+          <img 
+            src={user.profilePic || 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
+            alt="User Profile"
+            className="h-10 w-10 rounded-full hover:opacity-80 cursor-pointer transition-opacity"
+          />
+        </Link>
+      )}
+    </nav>
+
+
 
       {/*search bar plus feed of posts */}
-      <div className='flex-1 md:ml-80'>
+      <div className='bg-orange flex-1 md:pl-56 md:pr-8 md:pt-4'>
         
         {/*search */}
-        <div className='relative mb-8'>
+        <div className='relative mb-8 hidden md:block'>
           <FaSearch className='absolute left-4 top-1/2 transform -translate-y-1/2 text-orange'/>
           <input 
             type='text'
@@ -190,29 +249,29 @@ const Feed = () => {
         </div>
 
         {/* recipes feed */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-24 mb-20 mx-4 md:mt-0 md:mb-0 md:grid md:grid-cols-3 lg:grid-cols-4 gap-4">
             {recipes.map((recipe) => (
-              <div key={recipe._id} className="p-4 bg-white rounded-lg shadow-md">
+              <div key={recipe._id} className="p-2 bg-white rounded-lg shadow-md mb-4 md:mb-0">
                 <img 
                   src={recipe.image}
                   alt={recipe.title}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-40 object-cover rounded-lg"
                 />
-                <h2 className="mt-4 text-lg font-bold">{recipe.title}</h2>
+                <h2 className="mt-4 text-base font-bold">{recipe.title}</h2>
                 <div className='flex justify-between items-center'>
-                  <p className="text-gray-500">{recipe.postedBy.name}</p>
+                  <p className="text-sm text-gray-500">{recipe.postedBy.name}</p>
                   <div className="flex items-center gap-1">
                     <button 
                       onClick={() => handleLikeToggle(recipe._id)}
                       className="focus:outline-none text-red-500"
                     >
                       {recipe.likedBy?.includes(user?._id) ? (
-                        <FaHeart className="w-5 h-5" />
+                        <FaHeart className="w-4 h-4" />
                       ) : (
-                        <FaRegHeart className="w-5 h-5" />
+                        <FaRegHeart className="w-4 h-4" />
                       )}
                     </button>
-                    <span className="text-gray-500">{recipe.likes}</span>
+                    <span className="text-sm text-gray-500">{recipe.likes}</span>
                   </div>
                 </div>
               </div>
