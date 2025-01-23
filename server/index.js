@@ -11,7 +11,7 @@ const recipeRouter = require('./routes/recipeRoutes')
 
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://forkfolio-rho.vercel.app/',
     methods: ['POST', 'GET', 'UPDATE', 'DELETE'],
     credentials: true
 }));
