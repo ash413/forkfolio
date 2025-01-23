@@ -7,6 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && node index.js"
   },
+  "builds": [
+    {
+      "src": "client/build/**",
+      "use": "@vercel/static"
+    }
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

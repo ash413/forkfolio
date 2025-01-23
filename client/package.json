@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "/",
   "private": true,
   "proxy": "https://forkfolio.onrender.com",
   "dependencies": {
