@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const Signup = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Signup = () => {
             const response = await fetch('/auth/signup', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ name, email, password })
+                body: JSON.stringify({ name, email, username, password })
             });
             const data = await response.json();
             if (response.ok){
@@ -46,6 +47,14 @@ const Signup = () => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
+                className='w-full p-2 mb-4 border rounded'
+            />
+            <input
+                type="username"
+                placeholder="Username"
+                value = {username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 className='w-full p-2 mb-4 border rounded'
             />

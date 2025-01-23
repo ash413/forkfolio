@@ -4,6 +4,13 @@ import logo from '../images/logo2.png'
 import { Link } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa6'
 
+
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
+import { MdEdit } from "react-icons/md";
+
+
 const UserProfile = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null)
@@ -44,7 +51,7 @@ const UserProfile = () => {
           <img 
             src={logo} 
             alt="Forkfolio Logo" 
-            className="w-16 h-16 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
+            className="w-16 h-16 rounded-full hover:opacity-80 transition-opacity cursor-pointer "
           />
         </Link>
       </div>
@@ -60,8 +67,25 @@ const UserProfile = () => {
         <p className='text-gray-500'>{user.bio}</p>
       </div>
 
+      {/* edit user and delete user buttons below */}
+      <div className='flex flex-col items-center w-full max-w-sm mx-auto mb-20'>
+        <div className='flex items-center space-x-4'>
+          <button className='flex items-center gap-1 border rounded-lg px-3 py-1 border-orange text-orange hover:shadow-md hover:scale-105 transition-all'>
+            <FaEdit />
+            <p>Edit user profile</p>
+          </button>
+          <button className='flex items-center gap-1 border text-orange rounded-lg px-3 py-1 border-orange hover:shadow-md hover:scale-105 transition-all'>
+            <MdDelete />
+            <p>Delete user profile</p>
+          </button>
+        </div>
+      </div>
+
       {/*recipe section / user personal; posts */}
-      <div className="bg-orange p-6 rounded-lg shadow-md">
+      <div className="bg-orange p-6 rounded-lg shadow-md relative">
+        <button className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-4 border border-orange flex items-center justify-center hover:shadow-md hover:scale-105 transition-all">
+          <MdEdit className='text-orange h-8 w-8'/>
+        </button>
         <h3 className="text-2xl font-semibold mb-4">Recipes</h3>
         {recipes && recipes.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
