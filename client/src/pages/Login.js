@@ -16,6 +16,7 @@ const Login = () => {
                 body: JSON.stringify({ email, password }),
             });
             const data = await response.json();
+            console.log('Response data:', data); //error logging debugging
             if (response.ok){
                 setMessage(data.message);
                 localStorage.setItem('token', data.token)
@@ -24,6 +25,7 @@ const Login = () => {
                 setMessage(data.message)
             }
         } catch (error) {
+            console.log(error)
             setMessage('Error logging in!');
         }
     }
