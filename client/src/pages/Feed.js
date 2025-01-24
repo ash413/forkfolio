@@ -23,7 +23,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('/feed', {
+        const response = await fetch('https://forkfolio.onrender.com/feed', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}` 
           }
@@ -50,7 +50,7 @@ const Feed = () => {
         const decoded = jwtDecode(token)
         const username = decoded.username
 
-        const response = await fetch(`/user/${username}`, {
+        const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -81,7 +81,7 @@ const Feed = () => {
 
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`/search?query=${searchQuery}`, {
+        const response = await fetch(`https://forkfolio.onrender.com/search?query=${searchQuery}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -110,7 +110,7 @@ const Feed = () => {
 
   const handleLikeToggle = async(recipeId) => {
     try {
-      const response = await fetch(`/recipe/${recipeId}/toggle-like`, {
+      const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/toggle-like`, {
         method: 'POST',
         headers: {
           'Authorization' : `Bearer ${localStorage.getItem('token')}`

@@ -20,7 +20,7 @@ const UserProfile = () => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem('token')
-        const response = await fetch(`/user/${username}`, {
+        const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
