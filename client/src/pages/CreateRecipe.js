@@ -33,7 +33,7 @@ const CreateRecipe = () => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch('/recipe/create', {
+            const response = await fetch('https://forkfolio.onrender.com/recipe/create', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -51,7 +51,7 @@ const CreateRecipe = () => {
                 throw new Error('Failed to create a new recipe')
             }
 
-            navigate('/feed')
+            navigate('https://forkfolio.onrender.com/feed')
 
         } catch (error) {
             console.log('Error creating new recipe!', error)
@@ -138,7 +138,7 @@ const CreateRecipe = () => {
                         </button>
                         <button
                             type='button'
-                            onClick={(e) => navigate('/feed')}
+                            onClick={(e) => navigate('https://forkfolio.onrender.com/feed')}
                             className='bg-gray-200 px-6 py-2 rounded-lg'
                         >
                             Cancel

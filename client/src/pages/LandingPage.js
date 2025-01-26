@@ -22,8 +22,8 @@ const LandingPage = () => {
                     </div>
                     <h1 className="text-6xl text-white font-bold ml-20">FORKFOLIO</h1>
                     <div className="space-x-4">
-                        <Link to="/login" className="text-white text-lg font-bold mr-4">Log In</Link>
-                        <Link to="/signup" className="bg-white text-lg text-orange px-4 py-2 font-bold rounded">Sign Up</Link>
+                        <Link to="https://forkfolio.onrender.com/login" className="text-white text-lg font-bold mr-4">Log In</Link>
+                        <Link to="https://forkfolio.onrender.com/signup" className="bg-white text-lg text-orange px-4 py-2 font-bold rounded">Sign Up</Link>
                     </div>
                 </div>
 
@@ -40,8 +40,8 @@ const LandingPage = () => {
             {/* Menu Dropdown for Mobile View */}
             { isMenuOpen && (
                 <div className="md:hidden flex flex-col items-center bg-orange p-4">
-                    <Link to="/login" className="text-white text-lg font-bold">Log In</Link>
-                    <Link to="/signup" className="bg-white text-lg font-bold text-orange px-4 py-2 rounded mt-2">Sign Up</Link>
+                    <Link to="https://forkfolio.onrender.com/login" className="text-white text-lg font-bold">Log In</Link>
+                    <Link to="https://forkfolio.onrender.com/signup" className="bg-white text-lg font-bold text-orange px-4 py-2 rounded mt-2">Sign Up</Link>
                     <a href="#features" className="text-white text-bold mt-4">Features</a>
                 </div>
             )}
@@ -52,7 +52,7 @@ const LandingPage = () => {
         <section className="bg-orange text-white text-center py-20">
             <h1 className="text-4xl font-bold mb-4">Discover, Share, and Enjoy Recipes</h1>
             <p className="text-xl mb-6 px-2">Join Forkfolio and connect with a community of food lovers. Save and share your favorite recipes.</p>
-            <Link to="/signup" className="bg-white font-extrabold text-orange px-6 py-3 rounded-full text-2xl">GET STARTED</Link>
+            <Link to="https://forkfolio.onrender.com/signup" className="bg-white font-extrabold text-orange px-6 py-3 rounded-full text-2xl">GET STARTED</Link>
         </section>
 
         {/* Features Section */}
@@ -81,7 +81,7 @@ const LandingPage = () => {
             <div className="container mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">Join Our Community!</h2>
             <p className="text-xl mb-12">Be part of a vibrant community where food lovers come together to share recipes, stories, and more.</p>
-            <Link to="/signup" className="bg-orange text-2xl text-white font-extrabold px-6 py-4 rounded-full">Join Now</Link>
+            <Link to="https://forkfolio.onrender.com/signup" className="bg-orange text-2xl text-white font-extrabold px-6 py-4 rounded-full">Join Now</Link>
             </div>
         </section>
 

@@ -12,7 +12,7 @@ const Signup = () => {
     const handleSignup = async(e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/auth/signup', {
+            const response = await fetch('https://forkfolio.onrender.com/auth/signup', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ name, email, username, password })
@@ -20,7 +20,7 @@ const Signup = () => {
             const data = await response.json();
             if (response.ok){
                 setMessage(data.message);
-                navigate('/login')
+                navigate('https://forkfolio.onrender.com/login')
             } else {
                 setMessage(data.message)
             }

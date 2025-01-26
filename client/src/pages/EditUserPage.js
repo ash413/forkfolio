@@ -17,7 +17,7 @@ const EditUserPage = () => {
                 const decoded = jwtDecode(token)
                 const currentUsername = decoded.username;
 
-                const response = await fetch(`/user/${currentUsername}`, {
+                const response = await fetch(`https://forkfolio.onrender.com/user/${currentUsername}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -53,7 +53,7 @@ const EditUserPage = () => {
             const decoded = jwtDecode(token)
             const username = decoded.username;
 
-            const response = await fetch(`/user/${userId}`, {
+            const response = await fetch(`https://forkfolio.onrender.com/user/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const EditUserPage = () => {
                 throw new Error('Failed to update profile')
             }
 
-            navigate(`/userprofile/${username}`)
+            navigate(`https://forkfolio.onrender.com/userprofile/${username}`)
 
         } catch (error) {
             console.log('Error updating user profile', error)
@@ -146,7 +146,7 @@ const EditUserPage = () => {
                     </button>
                     <button
                         type='button'
-                        onClick={() => navigate('/feed')}
+                        onClick={() => navigate('https://forkfolio.onrender.com/feed')}
                         className='bg-gray-200 text-black px-6 py-2 rounded-lg'
                     >
                         Cancel

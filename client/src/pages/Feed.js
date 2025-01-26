@@ -23,7 +23,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('/feed', {
+        const response = await fetch('https://forkfolio.onrender.com/feed', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}` 
           }
@@ -50,7 +50,7 @@ const Feed = () => {
         const decoded = jwtDecode(token)
         const username = decoded.username
 
-        const response = await fetch(`/user/${username}`, {
+        const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -81,7 +81,7 @@ const Feed = () => {
 
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`/search?query=${searchQuery}`, {
+        const response = await fetch(`https://forkfolio.onrender.com/search?query=${searchQuery}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -104,13 +104,13 @@ const Feed = () => {
 
 
   const handleSearchClick = (username) => {
-    navigate(`/userprofile/${username}`);
+    navigate(`https://forkfolio.onrender.com/userprofile/${username}`);
   };
 
 
   const handleLikeToggle = async(recipeId) => {
     try {
-      const response = await fetch(`/recipe/${recipeId}/toggle-like`, {
+      const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/toggle-like`, {
         method: 'POST',
         headers: {
           'Authorization' : `Bearer ${localStorage.getItem('token')}`
@@ -170,7 +170,7 @@ const Feed = () => {
     <nav className="fixed px-4 top-0 h-full w-48 hidden md:flex border-r border-white">
       <div className="flex flex-col justify-between w-full py-6">
         <div className="flex flex-col items-center space-y-12">
-          <Link to='/feed'>
+          <Link to='https://forkfolio.onrender.com/feed'>
             <img 
               src={logo} 
               alt="Forkfolio Logo" 
@@ -178,7 +178,7 @@ const Feed = () => {
             />
           </Link>
           <div 
-            onClick={() => navigate('/create-recipe')} 
+            onClick={() => navigate('https://forkfolio.onrender.com/create-recipe')} 
           >
             <FaRegSquarePlus
               className="h-8 w-8 hover:scale-105 cursor-pointer"/>
@@ -187,7 +187,7 @@ const Feed = () => {
         
         {user && (
           <Link 
-            to={`/userprofile/${user.username}`}
+            to={`https://forkfolio.onrender.com/userprofile/${user.username}`}
             className="flex flex-col items-center space-y-2"
           >
             <img 
@@ -202,16 +202,16 @@ const Feed = () => {
 
     {/* Mobile Bottom Navigation */}
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 flex items-center justify-between px-8 md:hidden">
-      <Link to='/feed'>
+      <Link to='https://forkfolio.onrender.com/feed'>
         <img 
           src={logo} 
           alt="Forkfolio Logo" 
           className="h-10 w-10 rounded-full hover:scale-105 cursor-pointer"
         />
       </Link>
-      <FaRegSquarePlus onClick={() => navigate('/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
+      <FaRegSquarePlus onClick={() => navigate('https://forkfolio.onrender.com/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
       {user && (
-        <Link to={`/userprofile/${user.username}`}>
+        <Link to={`https://forkfolio.onrender.com/userprofile/${user.username}`}>
           <img 
             src={user.profilePic || 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
             alt="User Profile"
@@ -259,7 +259,7 @@ const Feed = () => {
                   src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-40 object-cover rounded-lg"
-                  onClick={()=> navigate(`/recipe/${recipe._id}`)}
+                  onClick={()=> navigate(`https://forkfolio.onrender.com/recipe/${recipe._id}`)}
                 />
                 <h2 className="mt-4 text-base font-bold">{recipe.title}</h2>
                 <div className='flex justify-between items-center'>
