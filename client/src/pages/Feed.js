@@ -23,7 +23,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('https://forkfolio.onrender.com/feed', {
+        const response = await fetch('/feed', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}` 
           }
@@ -50,7 +50,7 @@ const Feed = () => {
         const decoded = jwtDecode(token)
         const username = decoded.username
 
-        const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
+        const response = await fetch(`/user/${username}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -81,7 +81,7 @@ const Feed = () => {
 
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`https://forkfolio.onrender.com/search?query=${searchQuery}`, {
+        const response = await fetch(`/search?query=${searchQuery}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -110,7 +110,7 @@ const Feed = () => {
 
   const handleLikeToggle = async(recipeId) => {
     try {
-      const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/toggle-like`, {
+      const response = await fetch(`/recipe/${recipeId}/toggle-like`, {
         method: 'POST',
         headers: {
           'Authorization' : `Bearer ${localStorage.getItem('token')}`
@@ -177,8 +177,11 @@ const Feed = () => {
               className="w-24 h-24 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
             />
           </Link>
-          <div>
-            <FaRegSquarePlus className="h-8 w-8 hover:opacity-80 cursor-pointer transition-opacity"/>
+          <div 
+            onClick={() => navigate('/create-recipe')} 
+          >
+            <FaRegSquarePlus
+              className="h-8 w-8 hover:scale-105 cursor-pointer"/>
           </div>
         </div>
         
@@ -203,10 +206,10 @@ const Feed = () => {
         <img 
           src={logo} 
           alt="Forkfolio Logo" 
-          className="h-10 w-10 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
+          className="h-10 w-10 rounded-full hover:scale-105 cursor-pointer"
         />
       </Link>
-      <FaRegSquarePlus className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
+      <FaRegSquarePlus onClick={() => navigate('/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
       {user && (
         <Link to={`/userprofile/${user.username}`}>
           <img 
@@ -251,11 +254,12 @@ const Feed = () => {
         {/* recipes feed */}
         <div className="mt-24 mb-20 mx-4 md:mt-0 md:mb-0 md:grid md:grid-cols-3 lg:grid-cols-4 gap-4">
             {recipes.map((recipe) => (
-              <div key={recipe._id} className="p-2 bg-white rounded-lg shadow-md mb-4 md:mb-0">
+              <div key={recipe._id} className="p-2 bg-white rounded-lg shadow-md mb-4 md:mb-0 cursor-pointer hover:scale-105">
                 <img 
                   src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-40 object-cover rounded-lg"
+                  onClick={()=> navigate(`/recipe/${recipe._id}`)}
                 />
                 <h2 className="mt-4 text-base font-bold">{recipe.title}</h2>
                 <div className='flex justify-between items-center'>

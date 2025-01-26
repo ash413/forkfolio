@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "/",
   "private": true,
-  "proxy": "https://forkfolio.onrender.com",
+  "proxy": "http://localhost:8000",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cra-template": "1.2.0",

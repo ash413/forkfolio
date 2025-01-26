@@ -10,17 +10,16 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://forkfolio.onrender.com/auth/login', {
+            const response = await fetch('/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
             const data = await response.json();
-            console.log('Response data:', data); //error logging debugging
             if (response.ok){
-                setMessage(data.message);
-                localStorage.setItem('token', data.token)
                 navigate('/feed')
+                localStorage.setItem('token', data.token)
+                setMessage(data.message);
             } else{
                 setMessage(data.message)
             }

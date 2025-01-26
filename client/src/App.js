@@ -6,6 +6,10 @@ import Signup from './pages/Signup';
 import Feed from './pages/Feed';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import UserProfile from './pages/UserProfile';
+import RecipePage from './pages/RecipePage';
+import EditRecipePage from './pages/EditRecipePage';
+import CreateRecipe from './pages/CreateRecipe';
+import EditUserPage from './pages/EditUserPage';
 
 function App() {
   return (
@@ -23,6 +27,30 @@ function App() {
         < Route path='/userprofile/:username' element={
           <ProtectedRoute>
             <UserProfile />
+          </ProtectedRoute>
+        } 
+        />
+        <Route path='/recipe/:id' element={
+          <ProtectedRoute>
+            <RecipePage />
+          </ProtectedRoute>
+        } 
+        />
+        <Route path='/edit-recipe/:id' element={
+          <ProtectedRoute>
+            <EditRecipePage />
+          </ProtectedRoute>
+        }
+        />
+        <Route path='/create-recipe' element={
+          <ProtectedRoute>
+            <CreateRecipe />
+          </ProtectedRoute>
+        }
+        />
+        <Route path='/edit-user/:username' element={
+          <ProtectedRoute>
+            <EditUserPage />
           </ProtectedRoute>
         } 
         />
