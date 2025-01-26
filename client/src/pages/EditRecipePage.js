@@ -47,7 +47,7 @@ const EditRecipePage = () => {
                 throw new Error('Update Failed!')
             }
 
-            navigate(`https://forkfolio.onrender.com/recipe/${id}`) 
+            navigate(`/recipe/${id}`) 
         } catch (error) {
             console.log('Update error', error)
         }
@@ -107,7 +107,7 @@ const EditRecipePage = () => {
                 </button>
                 <button
                     type='button'
-                    onClick={(e) => navigate(`https://forkfolio.onrender.com/recipe/${recipe._id}`)}
+                    onClick={(e) => navigate(`/recipe/${recipe._id}`)}
                     className='bg-gray-200 px-6 py-2 rounded-lg'
                 >
                     Cancel

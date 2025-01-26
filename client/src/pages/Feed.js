@@ -104,7 +104,7 @@ const Feed = () => {
 
 
   const handleSearchClick = (username) => {
-    navigate(`https://forkfolio.onrender.com/userprofile/${username}`);
+    navigate(`/userprofile/${username}`);
   };
 
 
@@ -170,7 +170,7 @@ const Feed = () => {
     <nav className="fixed px-4 top-0 h-full w-48 hidden md:flex border-r border-white">
       <div className="flex flex-col justify-between w-full py-6">
         <div className="flex flex-col items-center space-y-12">
-          <Link to='https://forkfolio.onrender.com/feed'>
+          <Link to='/feed'>
             <img 
               src={logo} 
               alt="Forkfolio Logo" 
@@ -178,7 +178,7 @@ const Feed = () => {
             />
           </Link>
           <div 
-            onClick={() => navigate('https://forkfolio.onrender.com/create-recipe')} 
+            onClick={() => navigate('/create-recipe')} 
           >
             <FaRegSquarePlus
               className="h-8 w-8 hover:scale-105 cursor-pointer"/>
@@ -187,7 +187,7 @@ const Feed = () => {
         
         {user && (
           <Link 
-            to={`https://forkfolio.onrender.com/userprofile/${user.username}`}
+            to={`/userprofile/${user.username}`}
             className="flex flex-col items-center space-y-2"
           >
             <img 
@@ -202,16 +202,16 @@ const Feed = () => {
 
     {/* Mobile Bottom Navigation */}
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 flex items-center justify-between px-8 md:hidden">
-      <Link to='https://forkfolio.onrender.com/feed'>
+      <Link to='/feed'>
         <img 
           src={logo} 
           alt="Forkfolio Logo" 
           className="h-10 w-10 rounded-full hover:scale-105 cursor-pointer"
         />
       </Link>
-      <FaRegSquarePlus onClick={() => navigate('https://forkfolio.onrender.com/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
+      <FaRegSquarePlus onClick={() => navigate('/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
       {user && (
-        <Link to={`https://forkfolio.onrender.com/userprofile/${user.username}`}>
+        <Link to={`/userprofile/${user.username}`}>
           <img 
             src={user.profilePic || 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
             alt="User Profile"
@@ -259,7 +259,7 @@ const Feed = () => {
                   src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-40 object-cover rounded-lg"
-                  onClick={()=> navigate(`https://forkfolio.onrender.com/recipe/${recipe._id}`)}
+                  onClick={()=> navigate(`/recipe/${recipe._id}`)}
                 />
                 <h2 className="mt-4 text-base font-bold">{recipe.title}</h2>
                 <div className='flex justify-between items-center'>

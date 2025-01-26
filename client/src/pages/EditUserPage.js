@@ -72,7 +72,7 @@ const EditUserPage = () => {
                 throw new Error('Failed to update profile')
             }
 
-            navigate(`https://forkfolio.onrender.com/userprofile/${username}`)
+            navigate(`/userprofile/${username}`)
 
         } catch (error) {
             console.log('Error updating user profile', error)
@@ -146,7 +146,7 @@ const EditUserPage = () => {
                     </button>
                     <button
                         type='button'
-                        onClick={() => navigate('https://forkfolio.onrender.com/feed')}
+                        onClick={() => navigate('/feed')}
                         className='bg-gray-200 text-black px-6 py-2 rounded-lg'
                     >
                         Cancel

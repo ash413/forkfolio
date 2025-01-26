@@ -74,7 +74,7 @@ const UserProfile = () => {
         if (!response.ok) {
             throw new Error('Failed to delete user')
         }
-        navigate(`https://forkfolio.onrender.com/feed`)
+        navigate(`/feed`)
     } catch (error) {
         console.log('Error deleting user', error)
     }
@@ -85,7 +85,7 @@ const UserProfile = () => {
     <div className='relative max-w-7xl mx-auto p-6 mb-20 md:mb-6'>
       {/* Desktop Logo - hidden on mobile */}
       <div className="absolute top-6 left-6 hidden md:block">
-        <Link to='https://forkfolio.onrender.com/feed'>
+        <Link to='/feed'>
           <img 
             src={logo} 
             alt="Forkfolio Logo" 
@@ -110,7 +110,7 @@ const UserProfile = () => {
         <div className='flex flex-col items-center w-full max-w-sm mx-auto mb-20'>
         <div className='flex items-center space-x-4'>
           <button
-            onClick={() => navigate(`https://forkfolio.onrender.com/edit-user/${username}`)} 
+            onClick={() => navigate(`/edit-user/${username}`)} 
             className='flex items-center gap-1 border rounded-lg px-3 py-1 border-orange text-orange hover:shadow-md md:hover:scale-105 active:scale-105 transition-all'
           >
             <FaEdit />
@@ -163,7 +163,7 @@ const UserProfile = () => {
       <div className="bg-orange p-6 rounded-lg shadow-md relative">
         {isCurrentUserProfile && (
           <button
-            onClick={() => navigate('https://forkfolio.onrender.com/create-recipe')}  
+            onClick={() => navigate('/create-recipe')}  
             className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-4 border border-orange flex items-center justify-center hover:shadow-md hover:scale-105 transition-all"
           >
             <MdEdit className='text-orange h-8 w-8'/>
@@ -178,7 +178,7 @@ const UserProfile = () => {
                   src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-48 object-cover rounded-lg mb-4"
-                  onClick={()=> navigate(`https://forkfolio.onrender.com/recipe/${recipe._id}`)}
+                  onClick={()=> navigate(`/recipe/${recipe._id}`)}
                 />
                 <h4 className="text-lg font-semibold mb-2">{recipe.title}</h4>
                 <p className="text-sm text-gray-500">{recipe.description}</p>
@@ -195,7 +195,7 @@ const UserProfile = () => {
 
       {/* Mobile Bottom Navigation Bar */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 flex items-center justify-between px-8 md:hidden">
-        <Link to='https://forkfolio.onrender.com/feed'>
+        <Link to='/feed'>
           <img 
             src={logo} 
             alt="Forkfolio Logo" 

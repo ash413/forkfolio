@@ -20,7 +20,7 @@ const Signup = () => {
             const data = await response.json();
             if (response.ok){
                 setMessage(data.message);
-                navigate('https://forkfolio.onrender.com/login')
+                navigate('/login')
             } else {
                 setMessage(data.message)
             }

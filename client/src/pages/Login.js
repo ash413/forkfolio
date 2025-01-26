@@ -17,7 +17,7 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.ok){
-                navigate('https://forkfolio.onrender.com/feed')
+                navigate('/feed')
                 localStorage.setItem('token', data.token)
                 setMessage(data.message);
             } else{

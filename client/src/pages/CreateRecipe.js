@@ -51,7 +51,7 @@ const CreateRecipe = () => {
                 throw new Error('Failed to create a new recipe')
             }
 
-            navigate('https://forkfolio.onrender.com/feed')
+            navigate('/feed')
 
         } catch (error) {
             console.log('Error creating new recipe!', error)
@@ -138,7 +138,7 @@ const CreateRecipe = () => {
                         </button>
                         <button
                             type='button'
-                            onClick={(e) => navigate('https://forkfolio.onrender.com/feed')}
+                            onClick={(e) => navigate('/feed')}
                             className='bg-gray-200 px-6 py-2 rounded-lg'
                         >
                             Cancel

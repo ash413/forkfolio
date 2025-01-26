@@ -102,7 +102,7 @@ const RecipePage = () => {
             if (!response.ok) {
                 throw new Error('Failed to delete recipe')
             }
-            navigate(`https://forkfolio.onrender.com/feed`)
+            navigate(`/feed`)
         } catch (error) {
             console.log('Error deleting post', error)
         }
@@ -118,7 +118,7 @@ const RecipePage = () => {
             {/* Mobile Bottom Navigation Bar */}
             <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50 md:hidden">
                 <div className="flex items-center justify-center px-6 py-2">
-                    <Link to="https://forkfolio.onrender.com/feed">
+                    <Link to="/feed">
                     <img 
                         src={logo} 
                         alt="Forkfolio Logo" 
@@ -129,7 +129,7 @@ const RecipePage = () => {
             </div>
 
             {/* Hide default top logo on mobile */}
-            <Link to="https://forkfolio.onrender.com/feed" className="fixed top-8 left-8 hidden md:block">
+            <Link to="/feed" className="fixed top-8 left-8 hidden md:block">
                 <img src={logo} alt="Forkfolio Logo" className="w-24 h-24 rounded-full" />
             </Link>
 
@@ -160,7 +160,7 @@ const RecipePage = () => {
                     <div className="flex items-center gap-2">
                     {recipe.postedBy && (
                         <Link 
-                            to={`https://forkfolio.onrender.com/userprofile/${recipe.postedBy.username}`}
+                            to={`/userprofile/${recipe.postedBy.username}`}
                             className="flex flex-col items-center space-y-2"
                         >
                         <img
@@ -187,7 +187,7 @@ const RecipePage = () => {
             {isRecipeOwner && (
                 <div className="w-full max-w-2xl mx-auto mt-4 flex justify-center gap-2">
                     <button 
-                        onClick={() => navigate(`https://forkfolio.onrender.com/edit-recipe/${id}`)}
+                        onClick={() => navigate(`/edit-recipe/${id}`)}
                         className="bg-white text-orange px-4 py-2 rounded-lg"
                     >
                         Edit
