@@ -21,6 +21,8 @@ const UserProfile = () => {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false)
   const [deleteConfirmText, setDeleteConfirmText ] = useState('')
+  const [error, setError] = useState(null)
+  const [isDeleting, setIsDeleting] = useState('')
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -63,9 +65,14 @@ const UserProfile = () => {
   const handleDelete = async() => {
     if(deleteConfirmText.trim() !== user.username) return
 
+    setIsDeleting(true)
+    setError(null)
+
     try {
         const token = localStorage.getItem('token')
-
+        if(!token){
+          throw new Error("No authentication token found!")
+        }
         const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
@@ -74,12 +81,30 @@ const UserProfile = () => {
         if (!response.ok) {
             throw new Error('Failed to delete user')
         }
-        navigate(`/feed`)
+        localStorage.removeItem('token')
+        navigate(`/`)
     } catch (error) {
         console.log('Error deleting user', error)
+    } finally {
+      setIsDeleting(false)
     }
   }
+
   const isCurrentUserProfile = currentUser.username === username;
+
+  if (error) {
+    return (
+      <div className="text-center p-6">
+        <p className="text-red-500">{error}</p>
+        <button 
+          onClick={() => navigate('/feed')}
+          className="mt-4 text-orange hover:underline"
+        >
+          Return to Feed
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className='relative max-w-7xl mx-auto p-6 mb-20 md:mb-6'>
@@ -130,26 +155,36 @@ const UserProfile = () => {
       {/* Delete Confirmation Modal */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg">
-            <h2 className="text-xl font-bold mb-4">Delete Recipe</h2>
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h2 className="text-xl font-bold mb-4">Delete Account</h2>
+            <p className="text-red-600 mb-4">Warning: This action cannot be undone!</p>
             <p>Type <strong>"{user.username}"</strong> to confirm deletion:</p>
             <input 
               type="text"
               value={deleteConfirmText}
               onChange={(e) => setDeleteConfirmText(e.target.value)}
               className="w-full border p-2 mt-2"
+              placeholder="Enter username to confirm"
             />
+            {error && (
+              <p className="text-red-500 mt-2">{error}</p>
+            )}
             <div className="flex gap-2 mt-4">
               <button 
                 onClick={handleDelete}
-                disabled={deleteConfirmText.trim() !== user.username}
+                disabled={deleteConfirmText.trim() !== user.username || isDeleting}
                 className="bg-red-500 text-white px-4 py-2 rounded disabled:opacity-50"
               >
-                Confirm Delete
+                {isDeleting ? 'Deleting...' : 'Confirm Delete'}
               </button>
               <button 
-                onClick={() => setIsDeleteModalOpen(false)}
+                onClick={() => {
+                  setIsDeleteModalOpen(false)
+                  setError(null)
+                  setDeleteConfirmText('')
+                }}
                 className="bg-gray-200 text-black px-4 py-2 rounded"
+                disabled={isDeleting}
               >
                 Cancel
               </button>
