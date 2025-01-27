@@ -68,19 +68,31 @@ router.put('/user/:id', authMiddleware, async(req,res) => {
 
 
 //delete user account
-router.delete('/user/:id', authMiddleware, async(req, res) => {
-    if (req.userId != req.params.id){
+router.delete('/user/:username', authMiddleware, async(req, res) => {
+    /*if (req.userId != req.params.id){
         return res.status(403).json({
             message: "Unauthorised to delete this profile!"
-        })
-    } 
+        }) //changed /user/:id to /user/:username
+    } */
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
+        const user = await User.findOne({username : req.params.username})
+        if(!user){
+            return res.status(404).json({
+                message: "User not found!"
+            })
+        }
+        if (req.userId !== user._id.toString()) {
+            return res.status(403).json({
+                message: "Unauthorized to delete this profile!"
+            });
+        }
+        await User.findByIdAndDelete(user._id);
+
         res.json({
             message: "User deleted successfully"
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             message: "Error deleting user profile",
             error: error.message
         })
