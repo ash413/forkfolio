@@ -10,6 +10,7 @@ import RecipePage from './pages/RecipePage';
 import EditRecipePage from './pages/EditRecipePage';
 import CreateRecipe from './pages/CreateRecipe';
 import EditUserPage from './pages/EditUserPage';
+import BookmarkedRecipes from './pages/BookmarkedRecipes';
 
 function App() {
   return (
