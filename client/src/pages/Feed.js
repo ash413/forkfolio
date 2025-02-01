@@ -143,7 +143,7 @@ const Feed = () => {
 
   const handleBookmarkToggle = async(recipeId) => {
     try {
-      const response = await fetch(`/recipe/${recipeId}/bookmark`, {
+      const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/bookmark`, {
         method: 'POST',
         headers: {
           'Authorization' : `Bearer ${localStorage.getItem('token')}`

@@ -186,7 +186,7 @@ router.post('/recipe/:id/bookmark', authMiddleware, async (req, res) => {
 
         const user = await User.findById(req.userId)
         if (!user) {
-            return res.status().json({
+            return res.status(404).json({
                 message: "User not found!"
             })
         }
@@ -204,7 +204,8 @@ router.post('/recipe/:id/bookmark', authMiddleware, async (req, res) => {
 
             return res.json({
                 message: "Recipe bookmark removed successfully",
-                bookmarks: recipe.bookmarks
+                bookmarks: recipe.bookmarks,
+                bookmarkedBy: recipe.bookmarkedBy
             })
         } else {
             //BOOKMARK
@@ -216,7 +217,8 @@ router.post('/recipe/:id/bookmark', authMiddleware, async (req, res) => {
 
             return res.json({
                 message: "Recipe bookmarked successfully",
-                bookmarks: recipe.bookmarks
+                bookmarks: recipe.bookmarks,
+                bookmarkedBy: recipe.bookmarkedBy
             })
         }
 
