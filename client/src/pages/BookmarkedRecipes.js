@@ -82,7 +82,7 @@ const BookmarkedRecipes = () => {
 
     const handleLikeToggle = async(recipeId) => {
         try {
-            const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/toggle-like`, {
+            const response = await fetch(`/recipe/${recipeId}/toggle-like`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
