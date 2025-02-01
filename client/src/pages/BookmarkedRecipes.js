@@ -25,7 +25,7 @@ const BookmarkedRecipes = () => {
                 const username = decoded.username
 
                 // Fetch user data
-                const userResponse = await fetch(`/user/${username}`, {
+                const userResponse = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -37,7 +37,7 @@ const BookmarkedRecipes = () => {
                 setUser(user)
 
                 // Fetch bookmarked recipes
-                const recipesResponse = await fetch(`/user/${username}/bookmarked`, {
+                const recipesResponse = await fetch(`https://forkfolio.onrender.com/user/${username}/bookmarked`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -62,7 +62,7 @@ const BookmarkedRecipes = () => {
     const handleBookmarkToggle = async (recipeId) => {
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch(`/recipe/${recipeId}/bookmark`, {
+            const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/bookmark`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -82,7 +82,7 @@ const BookmarkedRecipes = () => {
 
     const handleLikeToggle = async(recipeId) => {
         try {
-            const response = await fetch(`/recipe/${recipeId}/toggle-like`, {
+            const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/toggle-like`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
