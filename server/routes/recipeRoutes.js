@@ -173,5 +173,61 @@ router.post('/recipe/:id/toggle-like', authMiddleware, async(req, res) => {
 })
 
 
+//FEATURE-UPDATE 1.1
+//bookmarking recipes
+router.post('/recipe/:id/bookmark', authMiddleware, async (req, res) => {
+    try {
+        const recipe = await Recipe.findById(req.params.id)
+        if (!recipe){
+            res.status(404).json({
+                message: "Recipe not fdound!"
+            })
+        }
+
+        const user = await User.findById(req.userId)
+        if (!user) {
+            return res.status().json({
+                message: "User not found!"
+            })
+        }
+
+        const alreadyBookmarked = recipe.bookmarkedBy.includes(req.userId)
+
+        if(alreadyBookmarked){
+            //REMOVE BOOKMARK
+            recipe.bookmarkedBy = recipe.bookmarkedBy.filter(id => id.toString() !== req.userId)
+            recipe.bookmarks -= 1
+            user.bookmarkedRecipes = user.bookmarkedRecipes.filter(id => id.toString() !== recipe._id.toString())
+
+
+            await Promise.all([recipe.save(), user.save()])
+
+            return res.json({
+                message: "Recipe bookmark removed successfully",
+                bookmarks: recipe.bookmarks
+            })
+        } else {
+            //BOOKMARK
+            recipe.bookmarkedBy.push(req.userId)
+            recipe.bookmarks += 1
+            user.bookmarkedRecipes.push(recipe._id)
+            
+            await Promise.all([recipe.save(), user.save()])
+
+            return res.json({
+                message: "Recipe bookmarked successfully",
+                bookmarks: recipe.bookmarks
+            })
+        }
+
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error bookmarking recipe",
+            error: error.message
+        })
+    }
+})
+
 
 module.exports = router

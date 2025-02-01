@@ -1,6 +1,9 @@
 import {React, useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
+
 import logo from '../images/logo2.png'
 import { jwtDecode } from 'jwt-decode';
 
@@ -11,6 +14,7 @@ const RecipePage = () => {
     const [recipe, setRecipe] = useState(null)
     const [user, setUser] = useState(null)
     const [isLiked, setIsLiked] = useState(false)
+    const [isBookmarked, setIsBookmarked] = useState(false)
 
     const [isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false)
     const [deleteConfirmText, setDeleteConfirmText ] = useState('')
@@ -80,6 +84,33 @@ const RecipePage = () => {
         }
     }
 
+    const handleBookmarkToggle = async() => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch(`/recipe/${id}/bookmark`, {
+                method: 'POST',
+                headers : {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            
+            if(!response.ok){
+                throw new Error("Failed to toggle bookmark")
+            }
+
+            const data = await response.json()
+            
+            setRecipe(prevRecipe => ({
+                ...prevRecipe,
+                bookmarks: data.bookmarks,
+                bookmarkedBy: data.bookmarkedBy
+            }));
+            setIsBookmarked(prevIsLiked => !prevIsLiked);
+
+        } catch (error) {
+            console.log("Error toggling bookmark", error)
+        }
+    }
 
 
     if (!recipe) {
@@ -173,6 +204,13 @@ const RecipePage = () => {
                         <p className="text-gray-500">{recipe.postedBy.name}</p>
                     </div>
                     <div className="flex items-center gap-2">
+                        <button
+                            onClick={handleBookmarkToggle}
+                            className="text-orange"
+                        >
+                            {isBookmarked ? <FaBookmark className="w-6 h-6" /> : <FaRegBookmark className="w-6 h-6" />}
+                        </button>
+                        <p className="text-gray-500">{recipe.bookmarks}</p>
                         <button
                             onClick={handleLikeToggle}
                             className="text-red-500"

@@ -54,6 +54,12 @@ function App() {
           </ProtectedRoute>
         } 
         />
+        <Route path='/bookmarks' element={
+          <ProtectedRoute>
+            <BookmarkedRecipes />
+          </ProtectedRoute>
+        }
+        />
       </Routes>
     </Router>
   );

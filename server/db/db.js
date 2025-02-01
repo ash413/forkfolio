@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
     username: {type: String, required:true, unique: true},
     password: {type: String, required: true},
     bio: String,
-    profilePic: {type: String, default:'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'}
+    profilePic: {type: String, default:'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'},
+    bookmarkedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)
@@ -36,6 +37,8 @@ const recipeSchema = new mongoose.Schema({
     //likedby can have multiple people liking that recipe and therefore needs 
     //to be an array of ids
     likedBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    bookmarks: {type: Number, default: 0},
+    bookmarkedBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 }, {timestamps: true})
 
 const Recipe = mongoose.model('Recipe', recipeSchema)

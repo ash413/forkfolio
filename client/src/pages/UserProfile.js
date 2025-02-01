@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import logo from '../images/logo2.png'
 import { Link } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa6'
+import { FaBookmark } from 'react-icons/fa6'
 
 
 import { FaEdit } from "react-icons/fa";
@@ -217,9 +218,14 @@ const UserProfile = () => {
                 />
                 <h4 className="text-lg font-semibold mb-2">{recipe.title}</h4>
                 <p className="text-sm text-gray-500">{recipe.description}</p>
-                <p className="flex items-center gap-1 focus:outline-none text-red-500">
-                  <FaHeart /> {recipe.likes}
-                </p>
+                <div className='flex justify-between items-center'>
+                  <p className="flex items-center gap-1 focus:outline-none text-red-500">
+                    <FaHeart /> {recipe.likes}
+                  </p>
+                  <p className='flex items-center gap-1 focus:outline-none text-orange'>
+                    <FaBookmark /> {recipe.bookmarks}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

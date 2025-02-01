@@ -100,4 +100,21 @@ router.delete('/user/:username', authMiddleware, async(req, res) => {
 })
 
 
+// FEATURE UPDATE 1.1
+//fetch all bookmarks
+router.get('/user/:username/bookmarked', authMiddleware, async(req, res) => {
+    try {
+        const user = await User.findOne({username: req.params.username})
+                            .populate('bookmarkedRecipes')
+        return res.json(user.bookmarkedRecipes)
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Error fetching all bookmarks of user",
+            error: error.message
+        })
+    }
+})
+
+
 module.exports = router

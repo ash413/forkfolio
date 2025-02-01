@@ -10,6 +10,9 @@ import { jwtDecode } from 'jwt-decode';
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
+import { MdOutlineBookmarks } from "react-icons/md";
+
 const Feed = () => {
   const [recipes, setRecipes] = useState([])
   const [user, setUser] = useState(null)
@@ -138,6 +141,36 @@ const Feed = () => {
     }
   }
 
+  const handleBookmarkToggle = async(recipeId) => {
+    try {
+      const response = await fetch(`/recipe/${recipeId}/bookmark`, {
+        method: 'POST',
+        headers: {
+          'Authorization' : `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (!response.ok){
+        throw new Error('Failed to toggle bookmark')
+      }
+      const data = await response.json();
+
+      setRecipes(recipes.map(recipe => 
+        recipe._id === recipeId 
+          ? { 
+              ...recipe, 
+              bookmarks: data.bookmarks,
+              bookmarkedBy: recipe.bookmarkedBy.includes(user._id) 
+                ? recipe.bookmarkedBy.filter(id => id !== user._id)
+                : [...recipe.bookmarkedBy, user._id]
+            }
+          : recipe
+      ));
+    } catch (error) {
+      console.log("Error toggling bookmarks!", error)
+    }
+  }
+
   return (
     <div className='flex flex-col min-h-screen md:flex-row'>
       {/* Mobile Search Bar - Fixed at top */}
@@ -183,6 +216,15 @@ const Feed = () => {
             <FaRegSquarePlus
               className="h-8 w-8 hover:scale-105 cursor-pointer"/>
           </div>
+
+          <div
+            onClick={() => navigate('/bookmarks')}
+          >
+            <MdOutlineBookmarks 
+              className='h-8 w-8 hover:scale-105 cursor-pointer'
+            />
+          </div>
+        
         </div>
         
         {user && (
@@ -210,6 +252,7 @@ const Feed = () => {
         />
       </Link>
       <FaRegSquarePlus onClick={() => navigate('/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
+      <MdOutlineBookmarks onClick={() => navigate('/bookmarks')} className='h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity' />
       {user && (
         <Link to={`/userprofile/${user.username}`}>
           <img 
@@ -265,6 +308,17 @@ const Feed = () => {
                 <div className='flex justify-between items-center'>
                   <p className="text-sm text-gray-500">{recipe.postedBy.name}</p>
                   <div className="flex items-center gap-1">
+                  <button 
+                      onClick={() => handleBookmarkToggle(recipe._id)}
+                      className="focus:outline-none text-orange"
+                    >
+                      {recipe.bookmarkedBy?.includes(user?._id) ? (
+                        <FaBookmark className="w-4 h-4" />
+                      ) : (
+                        <FaRegBookmark className="w-4 h-4" />
+                      )}
+                    </button>
+                    <span className="text-sm text-gray-500">{recipe.bookmarks}</span>
                     <button 
                       onClick={() => handleLikeToggle(recipe._id)}
                       className="focus:outline-none text-red-500"
