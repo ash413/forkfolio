@@ -13,7 +13,8 @@ const recipeRouter = require('./routes/recipeRoutes')
 app.use(cors({
     origin: [
         'http://18.188.78.207',
-        'https://forkfolio-connect.vercel.app'
+        'https://forkfolio-connect.vercel.app',
+        'https://forkfolio.vaishnavikadam.com'
     ],
     methods: ['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true
