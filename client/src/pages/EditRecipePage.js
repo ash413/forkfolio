@@ -14,7 +14,7 @@ const EditRecipePage = () => {
     useEffect(() => {
         const fetchRecipe = async() => {
             const token = localStorage.getItem('token')
-            const response = await fetch(`https://forkfolio.onrender.com/recipe/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -33,7 +33,7 @@ const EditRecipePage = () => {
     const handleSave = async() => {
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch(`https://forkfolio.onrender.com/recipe/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

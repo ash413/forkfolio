@@ -27,10 +27,10 @@ const RecipePage = () => {
                 const username = decoded.username
 
                 const [recipeResponse, userResponse] = await Promise.all([
-                    fetch(`https://forkfolio.onrender.com/recipe/${id}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
-                    fetch(`https://forkfolio.onrender.com/user/${username}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     })
                 ]);
@@ -60,7 +60,7 @@ const RecipePage = () => {
     
     const handleLikeToggle = async() => {
         try {
-            const response = await fetch(`https://forkfolio.onrender.com/recipe/${id}/toggle-like`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${id}/toggle-like`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -87,7 +87,7 @@ const RecipePage = () => {
     const handleBookmarkToggle = async() => {
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch(`/recipe/${id}/bookmark`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${id}/bookmark`, {
                 method: 'POST',
                 headers : {
                     'Authorization': `Bearer ${token}`
@@ -125,7 +125,7 @@ const RecipePage = () => {
         try {
             const token = localStorage.getItem('token')
 
-            const response = await fetch(`https://forkfolio.onrender.com/recipe/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             })

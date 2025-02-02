@@ -33,7 +33,7 @@ const CreateRecipe = () => {
         e.preventDefault()
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch('https://forkfolio.onrender.com/recipe/create', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/create`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

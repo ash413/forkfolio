@@ -26,7 +26,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('https://forkfolio.onrender.com/feed', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/feed`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}` 
           }
@@ -53,7 +53,7 @@ const Feed = () => {
         const decoded = jwtDecode(token)
         const username = decoded.username
 
-        const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -84,7 +84,7 @@ const Feed = () => {
 
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`https://forkfolio.onrender.com/search?query=${searchQuery}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/search?query=${searchQuery}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -113,7 +113,7 @@ const Feed = () => {
 
   const handleLikeToggle = async(recipeId) => {
     try {
-      const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/toggle-like`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${recipeId}/toggle-like`, {
         method: 'POST',
         headers: {
           'Authorization' : `Bearer ${localStorage.getItem('token')}`
@@ -143,7 +143,7 @@ const Feed = () => {
 
   const handleBookmarkToggle = async(recipeId) => {
     try {
-      const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/bookmark`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${recipeId}/bookmark`, {
         method: 'POST',
         headers: {
           'Authorization' : `Bearer ${localStorage.getItem('token')}`

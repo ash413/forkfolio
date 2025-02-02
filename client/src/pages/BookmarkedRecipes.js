@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode'
 import { FaBookmark, FaHeart, FaRegHeart } from "react-icons/fa6"
 import logo from '../images/logo2.png'
 
+
 const BookmarkedRecipes = () => {
     const [bookmarkedRecipes, setBookmarkedRecipes] = useState([])
     const [loading, setLoading] = useState(true)
@@ -25,7 +26,7 @@ const BookmarkedRecipes = () => {
                 const username = decoded.username
 
                 // Fetch user data
-                const userResponse = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
+                const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -37,7 +38,7 @@ const BookmarkedRecipes = () => {
                 setUser(user)
 
                 // Fetch bookmarked recipes
-                const recipesResponse = await fetch(`https://forkfolio.onrender.com/user/${username}/bookmarked`, {
+                const recipesResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}/bookmarked`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -62,7 +63,7 @@ const BookmarkedRecipes = () => {
     const handleBookmarkToggle = async (recipeId) => {
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch(`https://forkfolio.onrender.com/recipe/${recipeId}/bookmark`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${recipeId}/bookmark`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -82,7 +83,7 @@ const BookmarkedRecipes = () => {
 
     const handleLikeToggle = async(recipeId) => {
         try {
-            const response = await fetch(`/recipe/${recipeId}/toggle-like`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/recipe/${recipeId}/toggle-like`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`

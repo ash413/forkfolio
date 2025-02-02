@@ -12,7 +12,7 @@ const Signup = () => {
     const handleSignup = async(e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://forkfolio.onrender.com/auth/signup', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ name, email, username, password })

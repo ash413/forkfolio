@@ -17,7 +17,7 @@ const EditUserPage = () => {
                 const decoded = jwtDecode(token)
                 const currentUsername = decoded.username;
 
-                const response = await fetch(`https://forkfolio.onrender.com/user/${currentUsername}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${currentUsername}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -53,7 +53,7 @@ const EditUserPage = () => {
             const decoded = jwtDecode(token)
             const username = decoded.username;
 
-            const response = await fetch(`https://forkfolio.onrender.com/user/${userId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

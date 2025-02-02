@@ -33,10 +33,10 @@ const UserProfile = () => {
         const loggedInUsername = decoded.username;
 
         const [profileResponse, currentUserResponse] = await Promise.all([
-          fetch(`https://forkfolio.onrender.com/user/${username}`, {
+          fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch(`https://forkfolio.onrender.com/user/${loggedInUsername}`, {
+          fetch(`${process.env.REACT_APP_API_URL}/user/${loggedInUsername}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);
@@ -74,7 +74,7 @@ const UserProfile = () => {
         if(!token){
           throw new Error("No authentication token found!")
         }
-        const response = await fetch(`https://forkfolio.onrender.com/user/${username}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         })

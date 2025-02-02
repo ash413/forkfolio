@@ -11,8 +11,10 @@ const recipeRouter = require('./routes/recipeRoutes')
 
 
 app.use(cors({
-    /**/ origin: 'https://forkfolio-connect.vercel.app', /**/
-    /*origin: 'http://localhost:3000',*/
+    origin: [
+        'http://18.188.78.207',
+        'https://forkfolio-connect.vercel.app'
+    ],
     methods: ['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -38,7 +40,7 @@ app.use('/', recipeRouter)
 
 connectToDatabase().then(() => {
     const PORT = process.env.PORT || 8000
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
         console.log(`Server is running on port ${PORT}`)
 })
 })
