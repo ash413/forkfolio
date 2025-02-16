@@ -9,6 +9,8 @@ import { FaBookmark } from 'react-icons/fa6'
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
+import { MdLogout } from "react-icons/md";
+
 import { MdEdit } from "react-icons/md";
 import { jwtDecode } from 'jwt-decode'
 
@@ -58,6 +60,13 @@ const UserProfile = () => {
     }
     fetchUserProfile()
   }, [username])
+
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
+
 
   if (!user || !currentUser) {
     return <div className="text-center text-lg">Loading...</div>;
@@ -148,6 +157,15 @@ const UserProfile = () => {
           >
             <MdDelete />
             <p>Delete user</p>
+          </button>
+        </div>
+        <div className='flex items-center justify-center'>
+          <button
+            onClick={handleLogout}
+            className='flex items-center gap-1 border text-orange rounded-lg px-3 py-1 border-orange hover:shadow-md md:hover:scale-105 active:scale-105 transition-all'
+          >
+            <MdLogout />
+            <p>Logout</p>
           </button>
         </div>
       </div>

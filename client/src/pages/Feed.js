@@ -13,6 +13,8 @@ import { FaHeart } from "react-icons/fa6";
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
 import { MdOutlineBookmarks } from "react-icons/md";
 
+import { FaBowlRice } from "react-icons/fa6";
+
 const Feed = () => {
   const [recipes, setRecipes] = useState([])
   const [user, setUser] = useState(null)
@@ -224,6 +226,14 @@ const Feed = () => {
               className='h-8 w-8 hover:scale-105 cursor-pointer'
             />
           </div>
+
+          <div
+            onClick={() => navigate('/ai-chat')}
+          >
+            <FaBowlRice 
+              className='h-8 w-8 hover:scale-105 cursor-pointer'
+            />
+          </div>
         
         </div>
         
@@ -253,6 +263,7 @@ const Feed = () => {
       </Link>
       <FaRegSquarePlus onClick={() => navigate('/create-recipe')} className="h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity"/>
       <MdOutlineBookmarks onClick={() => navigate('/bookmarks')} className='h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity' />
+      <FaBowlRice onClick={() => navigate('/ai-chat')} className='h-6 w-6 hover:opacity-80 cursor-pointer transition-opacity' />
       {user && (
         <Link to={`/userprofile/${user.username}`}>
           <img 
