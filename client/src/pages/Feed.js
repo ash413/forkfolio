@@ -253,7 +253,7 @@ const Feed = () => {
     </nav>
 
     {/* Mobile Bottom Navigation */}
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 flex items-center justify-between px-8 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 flex items-center justify-between px-4 md:hidden">
       <Link to='/feed'>
         <img 
           src={logo} 
@@ -278,7 +278,7 @@ const Feed = () => {
 
 
       {/*search bar plus feed of posts */}
-      <div className='bg-orange flex-1 md:pl-56 md:pr-8 md:pt-4'>
+      <div className='bg-orange flex-1 md:pl-56 md:pr-8 md:py-4'>
         
         {/*search */}
         <div className='relative mb-8 hidden md:block'>

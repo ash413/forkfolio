@@ -70,9 +70,23 @@ const AIChat = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-50 p-4">
       {/* Chat Header */}
-      <div className="bg-white p-4 rounded-t-lg shadow-sm">
-        <h1 className="text-xl font-bold text-orange">Recipe Assistant</h1>
-        <p className="text-sm text-gray-500">What ingredients do you have?</p>
+      <div className="bg-white p-4 flex items-center justify-center relative rounded-t-lg shadow-sm">
+        {/* Desktop Logo - positioned absolutely to the left */}
+        <div className="absolute top-2 left-4 hidden md:block">
+          <Link to='/feed'>
+            <img 
+              src={logo} 
+              alt="Forkfolio Logo" 
+              className="w-16 h-16 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
+            />
+          </Link>
+        </div>
+
+        {/* Centered Text */}
+        <div className="text-center">
+          <h1 className="text-xl font-bold text-orange">Recipe Assistant</h1>
+          <p className="text-sm text-gray-500">What ingredients do you have?</p>
+        </div>
       </div>
 
       {/* Chat Messages */}
@@ -133,6 +147,19 @@ const AIChat = () => {
           </button>
         </div>
       </form>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg z-50 md:hidden">
+        <div className="flex items-center justify-center px-6 py-2">
+          <Link to="/feed">
+            <img 
+              src={logo} 
+              alt="Forkfolio Logo" 
+              className="h-10 w-10 rounded-full hover:opacity-80 transition-opacity"
+            />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

@@ -143,7 +143,7 @@ const UserProfile = () => {
       {/* edit user and delete user buttons below */}
       {isCurrentUserProfile && (
         <div className='flex flex-col items-center w-full max-w-sm mx-auto mb-20'>
-        <div className='flex items-center space-x-4'>
+        <div className='flex items-center space-x-4 pb-4'>
           <button
             onClick={() => navigate(`/edit-user/${username}`)} 
             className='flex items-center gap-1 border rounded-lg px-3 py-1 border-orange text-orange hover:shadow-md md:hover:scale-105 active:scale-105 transition-all'
