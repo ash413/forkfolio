@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import logo from '../images/logo2.png'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { FaPaperPlane } from 'react-icons/fa';
 
