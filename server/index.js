@@ -8,6 +8,7 @@ const { connectToDatabase } = require('./db/db')
 const authRouter = require('./routes/authRoutes')
 const userRouter = require('./routes/userRoutes')
 const recipeRouter = require('./routes/recipeRoutes')
+const aiRouter = require('./routes/aiRoutes')
 
 
 app.use(cors({
@@ -37,6 +38,8 @@ app.use('/', authRouter)
 app.use('/', userRouter)
 //recipe
 app.use('/', recipeRouter)
+//ai suggestions
+app.use('/', aiRouter)
 
 
 connectToDatabase().then(() => {

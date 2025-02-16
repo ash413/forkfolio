@@ -11,6 +11,7 @@ import EditRecipePage from './pages/EditRecipePage';
 import CreateRecipe from './pages/CreateRecipe';
 import EditUserPage from './pages/EditUserPage';
 import BookmarkedRecipes from './pages/BookmarkedRecipes';
+import AIChat from './pages/AiChat';
 
 function App() {
   return (
@@ -58,6 +59,12 @@ function App() {
         <Route path='/bookmarks' element={
           <ProtectedRoute>
             <BookmarkedRecipes />
+          </ProtectedRoute>
+        }
+        />
+        <Route path='/ai-chat' element={
+          <ProtectedRoute>
+            <AIChat />
           </ProtectedRoute>
         }
         />

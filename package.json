@@ -24,6 +24,8 @@
     "express-rate-limit": "^7.5.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
-    "mongoose": "^8.9.5"
+    "mongoose": "^8.9.5",
+    "natural": "^8.0.1",
+    "openai": "^4.85.1"
   }
 }

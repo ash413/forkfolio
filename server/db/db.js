@@ -41,6 +41,11 @@ const recipeSchema = new mongoose.Schema({
     bookmarkedBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 }, {timestamps: true})
 
+recipeSchema.pre('save', function(next) {
+    this.ingredients = this.ingredients.map(i => i.toLowerCase().trim());
+    next();
+});
+
 const Recipe = mongoose.model('Recipe', recipeSchema)
 
 
