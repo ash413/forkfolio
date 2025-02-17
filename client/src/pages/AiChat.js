@@ -31,6 +31,12 @@ const AIChat = () => {
         body: JSON.stringify({ ingredients: ingredients.split(',') })
       });
   
+      // Check for the warning header
+      const warningMessage = response.headers.get('X-Warning');
+      if (warningMessage) {
+        alert(warningMessage); // Show pop-up alert when the user is running out of attempts
+      }
+  
       if (!response.ok) throw new Error('Failed to fetch suggestions');
       const data = await response.json();
   
@@ -91,6 +97,7 @@ const AIChat = () => {
         </div>
       </div>
 
+
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, idx) => (
@@ -130,7 +137,7 @@ const AIChat = () => {
       </div>
 
       {/* Input Form */}
-      <form onSubmit={handleSubmit} className="bg-white p-4 rounded-b-lg shadow-sm">
+      <form onSubmit={handleSubmit} className="bg-white p-4 mb-12 md:mb-0 rounded-b-lg shadow-sm ">
         <div className="flex items-center gap-2">
           <input
             type="text"

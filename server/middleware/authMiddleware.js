@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 const SECRET_KEY = process.env.SECRET_KEY || 'iLoveSpiderman'
 
-const authMiddleware = (req, res,next) => {
+const authMiddleware = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1]; // extract token from bearer
     if (!token) {
         return res.status(401).json({

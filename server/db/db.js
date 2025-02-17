@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
     bio: String,
     profilePic: {type: String, default:'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'},
-    bookmarkedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
+    bookmarkedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }],
+    aiUsageCount: { type: Number, default: 0 }
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)
